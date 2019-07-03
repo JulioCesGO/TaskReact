@@ -7,7 +7,9 @@ import {
     DatePickerAndroid,
     StyleSheet, 
     TouchableWithoutFeedback, 
-    TouchableOpacity } from 'react-native'
+    TouchableOpacity,
+    Alert
+ } from 'react-native'
 import moment from 'moment'
 import commonStyles from '../commonStyles'
 
@@ -23,6 +25,10 @@ export default class AddTask extends Component {
     state = { ...initialState}
 
     save = () => {
+        if(!this.state.desc.trim()) {
+            Alert.alert('Dados invalidos', 'Imforme a descrição para salvar: ' + this.props.isVisible  )
+            return
+        }
         const data = { ...this.state}
         this.props.onSave(data)
         this.setState({...initialState})
